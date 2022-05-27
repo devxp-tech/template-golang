@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: "${{ secrets.DOCKERHUB_USERNAME }}/template-app-golang:$(echo ${GITHUB_SHA:0:7}),latest"
+          tags: "${{ secrets.DOCKERHUB_USERNAME }}/template-app-golang:$(echo ${GITHUB_SHA:0:7})"
