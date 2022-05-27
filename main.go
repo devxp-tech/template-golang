@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/diegoluisi/template-app-golang/config"
 	"github.com/diegoluisi/template-app-golang/controllers"
 	"github.com/gin-gonic/gin"
 )
