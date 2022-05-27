@@ -8,12 +8,13 @@ jobs:
       tag: ${{ steps.vars.outputs.tag }}
     steps:
       - id: vars
-        run: |
-          if [[ ! "$GITHUB_REF" =~ refs/tags ]]; then
-            echo "::set-output name=tag::$(echo $GITHUB_SHA | cut -c 1-8)"
-          else
-            echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)"
-          fi
+        run: echo "::set-output name=tag::$(git show -s --format="%h")"
+        # run: |
+        #   if [[ ! "$GITHUB_REF" =~ refs/tags ]]; then
+        #     echo "::set-output name=tag::$(echo $GITHUB_SHA | cut -c 1-8)"
+        #   else
+        #     echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)"
+        #   fi
       - run: echo "${{ steps.vars.outputs.tag }}"
   test:
     runs-on: ubuntu-latest
