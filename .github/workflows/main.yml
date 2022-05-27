@@ -48,4 +48,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/template-app-golang:${{ needs.vars.outputs.tag }},latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/template-app-go:${{ needs.vars.outputs.tag }},latest

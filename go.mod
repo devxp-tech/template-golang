@@ -1,4 +1,4 @@
-module github.com/diegoluisi/template-app-golang
+module github.com/diegoluisi/template-app-go
 
 go 1.18
 

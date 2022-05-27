@@ -17,7 +17,7 @@ func HealthCheckLiveness(c *gin.Context) {
 func HealthCheckReadiness(c *gin.Context) {
 	version, _ := ioutil.ReadFile("rev.txt")
 	result := healthcheck.HealthCheckerDetailed(healthcheck.ApplicationConfig{
-		Name:    "template-app-golang",
+		Name:    "template-app-go",
 		Version: string(version),
 		Integrations: []healthcheck.IntegrationConfig{
 			{
