@@ -5,13 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ["1.16", "1.17","1.18"]
+        go: ["1.16", "1.17", "1.18"]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v1
         with:
           go-version: ${{ matrix.go }}
-      - run: go test -v -coverprofile=profile.cov ./...
+      - run: go test -v ./...
   docker:
     needs: test
     runs-on: ubuntu-latest
