@@ -11,7 +11,7 @@ func main() {
 	server.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"status":  true,
-			"message": "Say hello for your new Golang+gin microservise (By backstage template-app-golang)",
+			"message": "Hello world for your app template-app-golang",
 		})
 	})
 	server.GET("/health-check/liveness", controllers.HealthCheckLiveness)
