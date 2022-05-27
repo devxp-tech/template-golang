@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+
+  # used as base for all services
+  test: &defaults
+    build:
+      context: .
+      target: base
+    working_dir: /app/
+    command: go test -v ./...
+    environment:
+      - ENVIRONMENT=development
+      - PORT=80 # dont forget when change this value here &&&
+      - CGO_ENABLED=0
+      - GOOS=linux
+    volumes:
+      - .:/app/
+      - go_packages:/go
+
+  # include all information in test and
+  # add the command to run
+  app:
+   <<: *defaults
+   command: go run main.go
+   ports:
+      - 8080:80 # ***update value here
+
+  # use all configuration probided in test
+  # and use a stand-alone image to run tests in Circle-ci workflow
+  ci:
+    <<: *defaults
+    build:
+      context: .
+      target: ci
+    volumes: []
+
+volumes:
+  go_packages: {}
