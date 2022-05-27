@@ -28,6 +28,7 @@ jobs:
           go-version: ${{ matrix.go }}
       - run: go test -v ./...
   docker:
+    name: Build and Push
     needs: 
       - test
       - vars
