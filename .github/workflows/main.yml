@@ -1,4 +1,4 @@
-name: test
+name: main
 on: [push, pull_request]
 jobs:
   vars:
@@ -35,7 +35,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
+      - name: Set default Branch
+        run: git config --global init.defaultBranch main
+      - name: Set rev.txt
+        run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
