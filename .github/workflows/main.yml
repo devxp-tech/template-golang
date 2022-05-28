@@ -20,6 +20,8 @@ jobs:
   
   test:
     runs-on: ubuntu-latest
+    needs: 
+      - vars
     strategy:
       matrix:
         go: ["1.17", "1.18"]
@@ -34,14 +36,13 @@ jobs:
     name: Build and Push
     needs: 
       - test
-      - vars
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set default Branch
-        run: git config --global init.defaultBranch main
-      - name: Set rev.txt
-        run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
+        #- name: Set default Branch
+        #  run: git config --global init.defaultBranch main
+        #- name: Set rev.txt
+        #  run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -55,14 +56,13 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/template-app-go:${{ needs.vars.outputs.tag }},latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/template-app-go:${{ needs.vars.outputs.tag }}
 
   deploy:
     name: GitOps Deploy
     runs-on: ubuntu-latest
     needs:
-      - vars
-      #- docker
+      - docker
 
     steps:
     - name: Set Kustomize
