@@ -1,6 +1,7 @@
 name: main
 on: [push, pull_request]
 jobs:
+  
   vars:
     name: Setup environment variables
     runs-on: ubuntu-latest
@@ -16,6 +17,7 @@ jobs:
             echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)"
           fi
       - run: echo "${{ steps.vars.outputs.tag }}"
+  
   test:
     runs-on: ubuntu-latest
     strategy:
@@ -27,6 +29,7 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
       - run: go test -v ./...
+  
   docker:
     name: Build and Push
     needs: 
@@ -56,7 +59,6 @@ jobs:
 
   deploy:
     name: GitOps Deploy
-
     runs-on: ubuntu-latest
     needs:
       - vars
