@@ -35,6 +35,7 @@ jobs:
   docker:
     name: Build and Push
     needs: 
+      - vars
       - test
     runs-on: ubuntu-latest
     steps:
