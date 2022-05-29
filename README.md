@@ -1,5 +1,5 @@
 # ${{values.component_id}}
-Template Project for Golang and Backstage
+## ${{values.description}}
 
 [![test](https://github.com/diegoluisi/${{values.component_id}}/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/diegoluisi/${{values.component_id}}/actions/workflows/main.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/diegoluisi/${{values.component_id}})](https://goreportcard.com/report/github.com/diegoluisi/${{values.component_id}})
