@@ -57,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/template-app-go:${{ needs.vars.outputs.tag }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{values.component_id}}:${{ needs.vars.outputs.tag }}
 
   deploy:
     name: GitOps Deploy
@@ -76,16 +76,16 @@ jobs:
       env:
         REPO_TOKEN: ${{secrets.ACCESS_TOKEN_GITHUB}}
 
-    - name: Update template-app-go Tag Image
+    - name: Update ${{values.component_id}} Tag Image
       run: |
-        cd apps/template-app-go/overlays/development
-        kustomize edit set image diegoluisi/template-app-go:${{ needs.vars.outputs.tag }}
+        cd apps/${{values.component_id}}/overlays/development
+        kustomize edit set image diegoluisi/${{values.component_id}}:${{ needs.vars.outputs.tag }}
     - name: Commit Changes
       run: |
         git version
         git add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m ":robot: [GitHub Action] Set new image tag to https://github.com/diegoluisi/template-app-go/commit/${{ needs.vars.outputs.tag }}"
+        git commit -m ":robot: [GitHub Action] Set new image tag to https://github.com/diegoluisi/${{values.component_id}}/commit/${{ needs.vars.outputs.tag }}"
     - name: Push changes
       run: git push          

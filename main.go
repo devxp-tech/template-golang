@@ -1,8 +1,8 @@
 package main
 
 import (
-	_ "github.com/diegoluisi/template-app-go/config"
-	"github.com/diegoluisi/template-app-go/controllers"
+	_ "github.com/diegoluisi/${{values.component_id}}/config"
+	"github.com/diegoluisi/${{values.component_id}}/controllers"
 	"github.com/gin-gonic/gin"
 )
 
@@ -11,7 +11,7 @@ func main() {
 	server.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"status":  true,
-			"message": "Hello world for your app template-app-go",
+			"message": "Hello world for your app ${{values.component_id}}",
 		})
 	})
 	server.GET("/health-check/liveness", controllers.HealthCheckLiveness)
