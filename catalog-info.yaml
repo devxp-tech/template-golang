@@ -10,8 +10,8 @@ metadata:
     backstage.io/techdocs-ref: dir:.
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
-      title: Dashboard
-      icon: dashboard
+      title: Website
+      icon: Website
 spec:
   type: website
   lifecycle: experimental
