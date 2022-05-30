@@ -16,7 +16,7 @@ jobs:
           else
             echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)"
           fi
-      - run: echo "${{ steps.vars.outputs.tag }}"
+      - run: echo ${{ '${{ steps.vars.outputs.tag }}' }}
   
   test:
     runs-on: ubuntu-latest
