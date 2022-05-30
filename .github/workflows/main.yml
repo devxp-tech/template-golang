@@ -74,7 +74,7 @@ jobs:
     - name: Clone Argo Repository
       run: git clone https://${REPO_TOKEN}@github.com/diegoluisi/argo.git .
       env:
-        REPO_TOKEN: ${{secrets.ACCESS_TOKEN_GITHUB}}
+        REPO_TOKEN: ${{ '${{secrets.ACCESS_TOKEN_GITHUB}}' }}
 
     - name: Update ${{values.component_id}} Tag Image
       run: |
