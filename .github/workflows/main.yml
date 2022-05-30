@@ -6,7 +6,7 @@ jobs:
     name: Setup environment variables
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.vars.outputs.tag }}
+      tag: ${{ '${{ steps.vars.outputs.tag }}' }}
     steps:
       - id: vars
         # run: echo "::set-output name=tag::$(git show -s --format="%h")"
