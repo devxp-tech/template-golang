@@ -78,7 +78,7 @@ jobs:
 
     - name: Update ${{values.component_id}} Tag Image
       run: |
-        cd apps/${{values.component_id}}/overlays/development
+        cd apps/${{values.component_id}}/overlays/dev
         kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
     - name: Commit Changes
       run: |
