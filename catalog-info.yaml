@@ -7,7 +7,7 @@ metadata:
   {%- endif %}
   annotations:
     github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: url:https://github.com/${{values.destination.owner + "/" + values.destination.repo}}
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
