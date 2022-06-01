@@ -12,6 +12,11 @@ metadata:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
       icon: Website
+  tags:
+    - golang
+    - ${{values.system | dump}}
+    - ${{values.type | dump}}
+    - ${{values.lifecycle | dump}}
 spec:
   system: ${{values.system | dump}}
   type:  ${{values.type | dump}}
