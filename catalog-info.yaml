@@ -13,6 +13,7 @@ metadata:
       title: Website
       icon: Website
 spec:
+  system: ${{values.system | dump}}
   type: website
-  lifecycle: experimental
+  lifecycle: ${{values.lifecycle | dump}}
   owner: ${{values.owner | dump}}
