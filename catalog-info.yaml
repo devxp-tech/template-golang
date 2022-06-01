@@ -14,6 +14,6 @@ metadata:
       icon: Website
 spec:
   system: ${{values.system | dump}}
-  type: website
+  type:  ${{values.type | dump}}
   lifecycle: ${{values.lifecycle | dump}}
   owner: ${{values.owner | dump}}
