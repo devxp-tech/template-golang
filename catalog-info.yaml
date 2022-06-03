@@ -8,7 +8,7 @@ metadata:
   annotations:
     github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
     backstage.io/techdocs-ref: dir:.
-    argocd/app-name: ${{values.component_id | dump}}
+    argocd/app-name: "${{values.env"-"${{values.component_id | dump}}"
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
