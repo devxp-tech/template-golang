@@ -6,7 +6,7 @@ metadata:
   description: ${{values.description | dump}}
   {%- endif %}
   annotations:
-    github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
+    github.com/project-slug: ${{values.destination.owner + "-" + values.destination.repo}}
     backstage.io/techdocs-ref: dir:.
     argocd/app-name: ${{values.env + "-" + values.component_id}}
   links:
