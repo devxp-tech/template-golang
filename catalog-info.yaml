@@ -10,6 +10,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     argocd/app-name: ${{values.env + "-" + values.component_id}}
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
+    sonarqube.org/project-key: ${{values.component_id | dump}}
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
