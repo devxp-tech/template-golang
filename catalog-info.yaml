@@ -11,8 +11,9 @@ metadata:
     argocd/app-name: ${{values.env + "-" + values.component_id}}
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
     sonarqube.org/project-key: ${{values.component_id | dump}}
+    grafana/tag-selector: ${{values.component_id | dump}}
     prometheus.io/rule: devxp-tech-alerts
-    prometheus.io/alert: High Pod Memory    
+    prometheus.io/alert: High Pod Memory   
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
