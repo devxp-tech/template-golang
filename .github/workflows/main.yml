@@ -114,8 +114,9 @@ jobs:
     name: Post Workflow Status To Slack
     needs:
       - vars
+      - test
       - sonarqube
-      - build-and-push
+      - docker
       - deploy
     runs-on: ubuntu-latest
     steps:
