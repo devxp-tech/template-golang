@@ -97,7 +97,7 @@ jobs:
     - name: Update ${{values.component_id}} Tag Image
       run: |
         cd apps/${{values.component_id}}/overlays/dev
-        kustomize edit set label version:${{ '${{ needs.vars.outputs.tag }}' }}
+        #kustomize edit set label version:${{ '${{ needs.vars.outputs.tag }}' }} #TODO: Need to fix, add label version @devxp-tech/diegoluisi
         kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
     - name: Commit Changes
       run: |
