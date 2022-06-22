@@ -24,11 +24,9 @@ metadata:
     - url: https://alerts.diegoluisi.eti.br/
       title: Alerts
       icon: alert 
-      
     - url: https://argocd.diegoluisi.eti.br/applications/${{values.env + "-" + values.component_id}}?resource=
       title: ArgoCD
       icon: cloud
-     
   tags:
     - golang
     - ${{values.system | dump}}
