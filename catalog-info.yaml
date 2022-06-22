@@ -13,7 +13,7 @@ metadata:
     sonarqube.org/project-key: ${{values.component_id | dump}}
     grafana/tag-selector: "kubernetes"
     prometheus.io/rule: devxp-tech-alerts
-    prometheus.io/alert: High Pod Memory   
+    prometheus.io/alert: all
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
