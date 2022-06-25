@@ -12,7 +12,7 @@ metadata:
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
     sonarqube.org/project-key: ${{values.component_id | dump}}
     grafana/tag-selector: "kubernetes"
-    prometheus.io/rule: devxp-tech-alerts
+    prometheus.io/rule: "container_cpu_usage_seconds_total{namespace='daniboy'}"
     prometheus.io/alert: all
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
