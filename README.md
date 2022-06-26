@@ -8,3 +8,14 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/${{values.destination.owner}}/${{values.component_id}})
 ![GitHub issues](https://img.shields.io/github/issues/${{values.destination.owner}}/${{values.component_id}})
 ![GitHub](https://img.shields.io/github/license/${{values.destination.owner}}/${{values.component_id}})
+
+
+## ✨ Contributions
+
+We ❤️ contributions big or small. [See our guide](contributing.md) on how to get started.
+
+### Thanks to all our contributors!
+
+<a href="https://github.com/devxp-tech/${{values.component_id}}/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=devxp-tech/${{values.component_id}}" />
+</a>
