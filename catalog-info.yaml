@@ -11,13 +11,22 @@ metadata:
     argocd/app-name: ${{values.env + "-" + values.component_id}}
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
     sonarqube.org/project-key: ${{values.component_id | dump}}
-    grafana/tag-selector: ${{values.component_id | dump}}
-    prometheus.io/rule: devxp-tech-alerts
-    prometheus.io/alert: High Pod Memory   
+    grafana/tag-selector: "kubernetes"
+    prometheus.io/rule: "container_cpu_usage_seconds_total{namespace='daniboy'}"
+    prometheus.io/alert: all
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
       icon: Website
+    - url: https://grafana.diegoluisi.eti.br/
+      title: Dashboard
+      icon: dashboard      
+    - url: https://alerts.diegoluisi.eti.br/
+      title: Alerts
+      icon: alert 
+    - url: https://argocd.diegoluisi.eti.br/applications/${{values.env + "-" + values.component_id}}?resource=
+      title: ArgoCD
+      icon: cloud
   tags:
     - golang
     - ${{values.system | dump}}

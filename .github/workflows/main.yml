@@ -41,7 +41,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: SonarQube Scan
-      uses: kitabisa/sonarqube-action@v1.1.0
+      uses: kitabisa/sonarqube-action@v1.2.0
       with:
         host: ${{ '${{ secrets.SONARQUBE_HOST }}' }}
         login: ${{ '${{ secrets.SONARQUBE_TOKEN }}' }}
@@ -74,6 +74,18 @@ jobs:
           push: true
           tags: ${{ '${{ secrets.DOCKERHUB_USERNAME }}' }}/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: diegoluisi/${{values.component_id}}:${{ needs.vars.outputs.tag }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
   deploy:
     name: GitOps Deploy
     runs-on: ubuntu-latest
@@ -97,6 +109,7 @@ jobs:
     - name: Update ${{values.component_id}} Tag Image
       run: |
         cd apps/${{values.component_id}}/overlays/dev
+        #kustomize edit set label version:${{ '${{ needs.vars.outputs.tag }}' }} #TODO: Need to fix, add label version @devxp-tech/diegoluisi
         kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
     - name: Commit Changes
       run: |
@@ -113,8 +126,9 @@ jobs:
     name: Post Workflow Status To Slack
     needs:
       - vars
+      - test
       - sonarqube
-      - build-and-push
+      - docker
       - deploy
     runs-on: ubuntu-latest
     steps:
