@@ -57,8 +57,8 @@ jobs:
       - uses: actions/checkout@v2
         #- name: Set default Branch
         #  run: git config --global init.defaultBranch main
-        #- name: Set rev.txt
-        #  run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
+      - name: Set rev.txt
+        run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -109,8 +109,10 @@ jobs:
     - name: Update ${{values.component_id}} Tag Image
       run: |
         cd apps/${{values.component_id}}/overlays/dev
-        #kustomize edit set label version:${{ '${{ needs.vars.outputs.tag }}' }} #TODO: Need to fix, add label version @devxp-tech/diegoluisi
-        kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
+        #kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
+        OLD_TAG=$(cat kustomization.yaml | grep 'tag:' |  awk '{print $2}')
+        NEW_TAG=${{ needs.vars.outputs.tag }}
+        sed -i "s|$OLD_TAG|$NEW_TAG|g" kustomization.yaml
     - name: Commit Changes
       run: |
         git version
