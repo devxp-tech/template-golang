@@ -111,7 +111,7 @@ jobs:
         cd apps/${{values.component_id}}/overlays/dev
         #kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
         OLD_TAG=$(cat kustomization.yaml | grep 'tag:' |  awk '{print $2}')
-        NEW_TAG=${{ needs.vars.outputs.tag }}
+        NEW_TAG=${{ '${{ needs.vars.outputs.tag }}' }}
         sed -i "s|$OLD_TAG|$NEW_TAG|g" kustomization.yaml
     - name: Commit Changes
       run: |
