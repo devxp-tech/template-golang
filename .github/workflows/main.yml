@@ -79,8 +79,8 @@ jobs:
         with:
           push: true
           secrets: |
-            GIT_AUTH_TOKEN${{ '${{ github.token }}' }}
-          tags: ghcr.io/devxp-tech/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }},tags: ghcr.io/devxp-tech/${{values.component_id}}:latest
+            GIT_AUTH_TOKEN=${{ '${{ github.token }}' }}
+          tags: ghcr.io/devxp-tech/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }},ghcr.io/devxp-tech/${{values.component_id}}:latest
 
       # - name: Run Trivy vulnerability scanner
       #   uses: aquasecurity/trivy-action@master
