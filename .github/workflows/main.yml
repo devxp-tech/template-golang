@@ -62,8 +62,6 @@ jobs:
     steps:
       - name: Checkout the repo 🛎️
         uses: actions/checkout@v2
-        #- name: Set default Branch
-        #  run: git config --global init.defaultBranch main
 
       - name: Set rev.txt 🛠️
         run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
