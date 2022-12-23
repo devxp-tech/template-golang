@@ -1,5 +1,10 @@
 name: main
-on: [push, pull_request]
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 jobs:
 
   vars:
@@ -19,7 +24,7 @@ jobs:
       - run: echo ${{ '${{ steps.vars.outputs.tag }}' }}
 
   test:
-    name: Test Application 🧪
+    name: Test Application 🔎
     runs-on: ubuntu-latest
     needs:
       - vars
@@ -143,7 +148,7 @@ jobs:
 
   slack-workflow-status:
     if: always()
-    name: Post Workflow Status To Slack 📣
+    name: Post Status To Slack  📣
     needs:
       - vars
       - test
