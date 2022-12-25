@@ -11,7 +11,7 @@ metadata:
     argocd/app-name: ${{values.env + "-" + values.component_id}}
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
     sonarqube.org/project-key: ${{values.component_id | dump}}
-    grafana/tag-selector: "kubernetes"
+    grafana/tag-selector: "Kubernetes"
     prometheus.io/rule: container_cpu_usage_seconds_total{namespace=${{values.component_id | dump}}}
     prometheus.io/alert: all
   links:
@@ -20,12 +20,15 @@ metadata:
       icon: Website
     - url: https://grafana.diegoluisi.eti.br/
       title: Dashboard
-      icon: dashboard      
+      icon: dashboard
     - url: https://alerts.diegoluisi.eti.br/
       title: Alerts
-      icon: alert 
+      icon: alert
     - url: https://argocd.diegoluisi.eti.br/applications/${{values.env + "-" + values.component_id}}?resource=
       title: ArgoCD
+      icon: cloud
+    - url: https://grafana.diegoluisi.eti.br/d/k8s_views_ns/kubernetes-views-namespaces?orgId=1&refresh=30s&var-datasource=Prometheus&var-namespace=${{values.component_id}}&var-resolution=30s
+      title: Logs
       icon: cloud
   tags:
     - golang
