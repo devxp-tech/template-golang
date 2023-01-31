@@ -12,7 +12,6 @@ COPY . .
 # the build layer responsable to create the entrypoint
 FROM ci as builder
 WORKDIR /app/
-RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o entrypoint
 
 # the shipment layer
