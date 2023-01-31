@@ -125,14 +125,14 @@ jobs:
         kustomize-version: "3.9.4"
 
     - name: GitOps Checkout 🛎️
-      run: git clone https://${REPO_TOKEN}@github.com/diegoluisi/argo.git .
+      run: git clone https://${REPO_TOKEN}@github.com/devxp-tech/gitops.git .
       env:
         REPO_TOKEN: ${{ '${{secrets.ACCESS_TOKEN_GITHUB}}' }}
 
     - name: Update Docker Image Tag 🏷️
       run: |
         cd apps/${{values.component_id}}/overlays/dev
-        #kustomize edit set image diegoluisi/${{values.component_id}}:${{ '${{ needs.vars.outputs.tag }}' }}
+
         OLD_TAG=$(cat kustomization.yaml | grep 'tag:' |  awk '{print $2}')
         NEW_TAG=${{ '${{ needs.vars.outputs.tag }}' }}
         sed -i "s|$OLD_TAG|$NEW_TAG|g" kustomization.yaml
