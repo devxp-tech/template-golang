@@ -11,7 +11,7 @@ jobs:
     name: Setup Environment 🛠️
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ '${{ steps.vars.outputs.tag }}' }}
+      tag: ${{ steps.vars.outputs.tag }}
     steps:
       - id: vars
         # run: echo "::set-output name=tag::$(git show -s --format="%h")"
@@ -21,7 +21,7 @@ jobs:
           else
             echo "::set-output name=tag::$(echo $GITHUB_REF | cut -d / -f 3)"
           fi
-      - run: echo ${{ '${{ steps.vars.outputs.tag }}' }}
+      - run: echo ${{ steps.vars.outputs.tag }}
 
   test:
     name: Test Application 🔎
@@ -32,7 +32,7 @@ jobs:
       matrix:
         go: ["1.17", "1.18"]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-go@v1
         with:
           go-version: ${{ matrix.go }}
@@ -45,7 +45,7 @@ jobs:
       - vars
       - test
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
@@ -61,7 +61,7 @@ jobs:
       - sonarqube
     steps:
       - name: Checkout the repo 🛎️
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set rev.txt 🛠️
         run: git show -s --format="%ai %H %s %aN" HEAD > rev.txt
@@ -120,7 +120,7 @@ jobs:
 
     steps:
     - name: Set Kustomize 🛠️
-      uses: imranismail/setup-kustomize@v1
+      uses: imranismail/setup-kustomize@v2
       with:
         kustomize-version: "3.9.4"
 
