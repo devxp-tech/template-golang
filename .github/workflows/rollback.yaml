@@ -1,0 +1,57 @@
+name: rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Set Docker Image Tag to Roll Back"
+        required: true
+
+jobs:
+  rollback:
+    name: GitOps Rollback 🔙
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set Kustomize 🛠️
+      uses: imranismail/setup-kustomize@v1
+      with:
+        kustomize-version: "3.9.4"
+
+    - name: GitOps Checkout 🛎️
+      run: git clone https://${REPO_TOKEN}@github.com/devxp-tech/gitops.git .
+      env:
+        REPO_TOKEN: ${{ '${{secrets.ACCESS_TOKEN_GITHUB}}' }}
+
+    - name: Update Docker Image Tag 🏷️
+      run: |
+        cd apps/teste-loki/overlays/dev
+        OLD_TAG=$(cat kustomization.yaml | grep 'tag:' |  awk '{print $2}')
+        NEW_TAG=${{ '${{ inputs.tag }}' }}
+        sed -i "s|$OLD_TAG|$NEW_TAG|g" kustomization.yaml
+
+    - name: Commit and Push 🚀
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -am ":robot: [GitHub Action] Set new image tag to https://github.com/${GITHUB_REPOSITORY}/commit/${{ '${{ inputs.tag }}' }}"
+        git push
+
+  slack-workflow-status:
+    if: always()
+    name: Post Status To Slack  📣
+    needs:
+      - rollback
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          # Required Input
+          repo_token: ${{ '${{secrets.ACCESS_TOKEN_GITHUB}}' }}
+          slack_webhook_url: ${{ '${{ secrets.SLACK_WEBHOOK }}' }}
+          # Optional Input
+          channel: 'github-notifications'
+          name: 'github-notifications'
+          # icon_emoji: ':poop:'
+          icon_url: ${{ '${{ secrets.SLACK_ICON }}' }}
