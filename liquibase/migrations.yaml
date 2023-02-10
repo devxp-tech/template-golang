@@ -1,0 +1,15 @@
+# Template Liquibase
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: diegoluisi
+      changes:
+        - createTable:
+            tableName: example
+            columns:
+              - column:
+                  name: example1
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
