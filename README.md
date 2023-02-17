@@ -19,3 +19,5 @@ We ❤️ contributions big or small. [See our guide](contributing.md) on how to
 <a href="https://github.com/devxp-tech/${{values.component_id}}/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=devxp-tech/${{values.component_id}}" />
 </a>
+
+Made with 💜 by DevXP-Tech
