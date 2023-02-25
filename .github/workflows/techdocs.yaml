@@ -2,11 +2,10 @@ name: Publish TechDocs Site 📄
 
 on:
   push:
-    branches: [main]
-    # You can even set it to run only when TechDocs related files are updated.
-    # paths:
-    #   - "docs/**"
-    #   - "mkdocs.yml"
+    # branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
 
 jobs:
   env:

@@ -5,7 +5,10 @@ on:
     branches:
       - main
     paths-ignore:
+      - 'mkdocs.yml'
       - 'docs/**'
+      - 'catalog-info.yaml'
+
 
 jobs:
   env:
