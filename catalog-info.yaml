@@ -1,5 +1,10 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
+spec:
+  system: ${{values.system | dump}}
+  type:  ${{values.type | dump}}
+  lifecycle: ${{values.lifecycle | dump}}
+  owner: ${{values.owner | dump}}
 metadata:
   name: ${{values.component_id | dump}}
   {%- if values.description %}
@@ -14,6 +19,11 @@ metadata:
     grafana/tag-selector: "Kubernetes"
     prometheus.io/rule: container_cpu_usage_seconds_total{namespace=${{values.component_id | dump}}}
     prometheus.io/alert: all
+  tags:
+    - golang
+    - ${{values.system | dump}}
+    - ${{values.type | dump}}
+    - ${{values.lifecycle | dump}}
   links:
     - url: https://${{values.component_id}}.diegoluisi.eti.br
       title: Website
@@ -30,13 +40,4 @@ metadata:
     - url: https://grafana.diegoluisi.eti.br/d/k8s_views_ns/kubernetes-views-namespaces?orgId=1&refresh=30s&var-datasource=Prometheus&var-namespace=${{values.component_id}}&var-resolution=30s
       title: Logs
       icon: cloud
-  tags:
-    - golang
-    - ${{values.system | dump}}
-    - ${{values.type | dump}}
-    - ${{values.lifecycle | dump}}
-spec:
-  system: ${{values.system | dump}}
-  type:  ${{values.type | dump}}
-  lifecycle: ${{values.lifecycle | dump}}
-  owner: ${{values.owner | dump}}
+
