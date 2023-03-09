@@ -13,7 +13,7 @@ metadata:
   annotations:
     github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
     backstage.io/techdocs-ref: dir:.
-    argocd/app-name: ${{values.env + "-" + values.component_id}}
+    argocd/app-name: ${{values.component_id + "-" + values.env}}
     backstage.io/kubernetes-id: ${{values.component_id | dump}}
     sonarqube.org/project-key: ${{values.component_id | dump}}
     grafana/tag-selector: "Kubernetes"
@@ -34,7 +34,7 @@ metadata:
     - url: https://alerts.diegoluisi.eti.br/
       title: Alerts
       icon: alert
-    - url: https://argocd.diegoluisi.eti.br/applications/${{values.env + "-" + values.component_id}}?resource=
+    - url: https://argocd.diegoluisi.eti.br/applications/${{values.component_id + "-" + values.env}}?resource=
       title: ArgoCD
       icon: cloud
     - url: https://grafana.diegoluisi.eti.br/d/k8s_views_ns/kubernetes-views-namespaces?orgId=1&refresh=30s&var-datasource=Prometheus&var-namespace=${{values.component_id}}&var-resolution=30s
