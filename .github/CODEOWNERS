@@ -1,3 +1,3 @@
+* @devxp-tech/dev-team
 .github/* @devxp-tech/sre-team
 liquibase/* @devxp-tech/dba-team
-* @devxp-tech/${{values.owner}}

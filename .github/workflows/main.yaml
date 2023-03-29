@@ -1,15 +1,14 @@
-name: main
+name: Main 🚀
 
 on:
   push:
     branches:
       - main
     paths-ignore:
-      - 'README.md'
+      - README.md
       - 'mkdocs.yml'
+      - catalog-info.yaml
       - 'docs/**'
-      - 'catalog-info.yaml'
-
 
 jobs:
   env:
