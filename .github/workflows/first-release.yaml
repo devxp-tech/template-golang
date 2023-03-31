@@ -1,9 +1,7 @@
 name: First Release 🌱
 
 on:
-  push:
-    branches:
-      - 'first-release/*'
+  workflow_dispatch:
 
 
 jobs:
