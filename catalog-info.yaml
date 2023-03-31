@@ -4,7 +4,7 @@ spec:
   system: ${{values.system | dump}}
   type:  ${{values.type | dump}}
   lifecycle: ${{values.lifecycle | dump}}
-  owner: ${{values.owner | dump}}
+  owner: ${{values.appGroup | dump}}
 metadata:
   name: ${{values.component_id | dump}}
   {%- if values.description %}
