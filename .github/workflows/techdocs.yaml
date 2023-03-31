@@ -2,7 +2,7 @@ name: TechDocs 📚
 
 on:
   push:
-    branches: [main]
+    # branches: [main]
     # You can even set it to run only when TechDocs related files are updated.
     paths:
       - "docs/**"
