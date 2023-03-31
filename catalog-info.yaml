@@ -21,7 +21,7 @@ metadata:
     prometheus.io/alert: all
   tags:
     - golang
-    - ${{values.system | dump}}
+    - ${{ parameters.system }}
     - ${{values.type | dump}}
     - ${{values.lifecycle | dump}}
   links:
