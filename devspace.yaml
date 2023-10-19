@@ -1,0 +1,81 @@
+version: v2beta1
+name: ${{values.component_id}}
+
+vars:
+  IMAGE: ghcr.io/devxp-tech/${{values.component_id}} #:devspace
+
+pipelines:
+  dev:
+    run: |-
+      run_dependencies --all       # 1. Deploy any projects this project needs (see "dependencies")
+      create_deployments --all
+      start_dev app
+
+# This is a list of `images` that DevSpace can build for this project
+# We recommend to skip image building during development (devspace dev) as much as possible
+images:
+  app:
+    image: ${IMAGE}
+    dockerfile: ./Dockerfile
+
+# This is a list of `deployments` that DevSpace can create for this project
+deployments:
+  app:
+    # This deployment uses `kubectl` but you can also define `helm` deployments
+    kubectl:
+      manifests:
+        - kustomize/overlays/dev/
+      kustomize: true
+
+# This is a list of `dev` containers that are based on the containers created by your deployments
+dev:
+  app:
+    # Search for the container that runs this image
+    imageSelector: ${IMAGE}
+    # Replace the container image with this dev-optimized image (allows to skip image building during development)
+    devImage: ghcr.io/loft-sh/devspace-containers/go:1.18-alpine
+    logs: {}
+    command:
+      - go
+      - run
+      - main.go
+    # Sync files between the local filesystem and the development container
+    sync:
+      - path: ./:/app
+        uploadExcludeFile: .dockerignore
+        excludePaths:
+          - "**"
+          - "!**/*.go"
+          - "!go.mod"
+          - "!go.sum"
+        onUpload:
+          restartContainer: true
+    # Forward the following ports to be able access your application via localhost
+    ports:
+      - port: 23450:2345
+      - port: 8080:8080
+    # Open the following URLs once they return an HTTP status code other than 502 or 503
+    open:
+      - url: http://localhost:8080
+
+# Use the `commands` section to define repeatable dev workflows for this project
+commands:
+  migrate-db:
+    command: |-
+      echo 'This is a cross-platform, shared command that can be used to codify any kind of dev task.'
+      echo 'Anyone using this project can invoke it via "devspace run migrate-db"'
+  test:
+    command: |-
+      go test -v ./...
+
+# Define dependencies to other projects with a devspace.yaml
+# dependencies:
+#   api:
+#     git: https://...  # Git-based dependencies
+#     tag: v1.0.0
+#   ui:
+#     path: ./ui        # Path-based dependencies (for monorepos)
+
+dependencies:
+  homepage:
+    path: ../homepage
