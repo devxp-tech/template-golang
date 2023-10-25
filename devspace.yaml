@@ -1,35 +1,46 @@
 version: v2beta1
 name: ${{values.component_id}}
 
+# `vars` specifies variables which may be used as ${VAR_NAME} in devspace.yaml
 vars:
   IMAGE: ghcr.io/devxp-tech/${{values.component_id}} #:devspace
 
 pipelines:
+  # Override the default pipeline for 'devspace dev'
   dev:
     run: |-
       run_dependencies --all       # 1. Deploy any projects this project needs (see "dependencies")
-      create_deployments --all
-      start_dev app
+      create_deployments --all     # 2. Deploy Helm charts and manifests specfied as "deployments"
+      start_dev --all              # 3. Start dev mode "app" (see "dev" section
 
 # This is a list of `images` that DevSpace can build for this project
 # We recommend to skip image building during development (devspace dev) as much as possible
 images:
-  app:
+  ${{values.component_id}}:
     image: ${IMAGE}
     dockerfile: ./Dockerfile
 
 # This is a list of `deployments` that DevSpace can create for this project
 deployments:
-  app:
-    # This deployment uses `kubectl` but you can also define `helm` deployments
-    kubectl:
-      manifests:
-        - kustomize/overlays/dev/
-      kustomize: true
+  ${{values.component_id}}:
+    helm:
+      chart:
+        name: devxp-dev
+        version: 0.0.3
+        repo: https://devxp-tech.github.io/helm-charts
+      values:
+        name: ${{values.component_id}}
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
 
 # This is a list of `dev` containers that are based on the containers created by your deployments
 dev:
-  app:
+  ${{values.component_id}}:
     # Search for the container that runs this image
     imageSelector: ${IMAGE}
     # Replace the container image with this dev-optimized image (allows to skip image building during development)
@@ -57,6 +68,7 @@ dev:
     # Open the following URLs once they return an HTTP status code other than 502 or 503
     open:
       - url: http://localhost:8080
+      - url: http://localhost:8090
 
 # Use the `commands` section to define repeatable dev workflows for this project
 commands:
@@ -70,12 +82,7 @@ commands:
 
 # Define dependencies to other projects with a devspace.yaml
 # dependencies:
-#   api:
-#     git: https://...  # Git-based dependencies
-#     tag: v1.0.0
-#   ui:
-#     path: ./ui        # Path-based dependencies (for monorepos)
-
-dependencies:
-  homepage:
-    path: ../homepage
+#   homepage:
+#     git: https://github.com/devxp-tech/homepage
+#     branch: main
+#     pipeline: dev
