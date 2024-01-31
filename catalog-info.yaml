@@ -1,9 +1,9 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: backstage
+  name: golang template
   description: |
-    Backstage is an open-source developer portal that puts the developer experience first.
+    hello
   links:
     - title: Website
       url: http://backstage.io
