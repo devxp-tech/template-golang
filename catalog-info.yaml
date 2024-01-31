@@ -1,43 +1,23 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
-spec:
-  system: ${{values.system | dump}}
-  type:  ${{values.type | dump}}
-  lifecycle: ${{values.lifecycle | dump}}
-  owner: ${{values.appGroup | dump}}
 metadata:
-  name: ${{values.component_id | dump}}
-  description: ${{values.description | dump}}
-  annotations:
-    github.com/project-slug: ${{values.destination.owner + "/" + values.destination.repo}}
-    backstage.io/techdocs-ref: dir:.
-    argocd/app-name: ${{values.component_id + "-" + values.env}}
-    backstage.io/kubernetes-id: ${{values.component_id | dump}}
-    sonarqube.org/project-key: ${{values.component_id | dump}}
-    grafana/tag-selector: "Kubernetes"
-    prometheus.io/rule: container_cpu_usage_seconds_total{namespace=${{values.component_id | dump}}}
-    prometheus.io/alert: all
-  tags:
-    - golang
-    # - ${{ values.system }}
-    - ${{ values.type | dump}}
-    - ${{ values.lifecycle | dump}}
+  name: backstage
+  description: |
+    Backstage is an open-source developer portal that puts the developer experience first.
   links:
-    - url: https://${{values.component_id}}.${{ values.kubernetes.network.domain }}
-      title: Website
-      icon: Website
-    - url: https://grafana.devxp-tech.io/
-      title: Dashboard
-      icon: dashboard
-    - url: https://alerts.devxp-tech.io/
-      title: Alerts
-      icon: alert
-    - url: https://argocd.devxp-tech.io/applications/${{values.component_id + "-" + values.env}}?resource=
-      title: ArgoCD
-      icon: cloud
-    - url: https://grafana.devxp-tech.io/d/k8s_views_ns/kubernetes-views-namespaces?orgId=1&refresh=30s&var-datasource=Prometheus&var-namespace=${{values.component_id}}&var-resolution=30s
-      title: Logs
-      icon: cloud
-    - url: https://kiali.devxp-tech.io/kiali/console/graph/namespaces/?traffic=grpc%2CgrpcRequest%2Chttp%2ChttpRequest%2Ctcp%2CtcpSent&graphType=versionedApp&namespaces=${{values.component_id}}&duration=120&refresh=60000&idleNodes=true&layout=kiali-breadthfirst&namespaceLayout=kiali-dagre
-      title: Kiali
-      icon: cloud
+    - title: Website
+      url: http://backstage.io
+    - title: Documentation
+      url: https://backstage.io/docs
+    - title: Storybook
+      url: https://backstage.io/storybook
+    - title: Discord Chat
+      url: https://discord.com/invite/EBHEGzX
+  annotations:
+    github.com/project-slug: backstage/backstage
+    backstage.io/techdocs-ref: dir:.
+    lighthouse.com/website-url: https://backstage.io
+spec:
+  type: library
+  owner: CNCF
+  lifecycle: experimental
